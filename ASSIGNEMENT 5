@@ -1,0 +1,35 @@
+import csv
+import matplotlib.pyplot as plt
+from datetime import datetime
+
+
+fileloc = "C:\\Users\\A_moo\\Documents\\ISM 4403\\PYTHON FILES\\Alaska Climate.csv"
+with open(fileloc) as f:
+	reader = csv.reader(f)
+	header_row = next(reader)
+	Tmaxinfo = []
+	Tmininfo = []
+	Dateinfo = []
+	for row in reader:
+		Tmaxdata = int(row[8])
+		Tmindata = int(row[10])
+		Datedata = datetime.strptime(row[5], '%m%d%Y')
+		Tmaxinfo.append(Tmaxdata)
+		Tmininfo.append(Tmindata)
+		Dateinfo.append(Datedata)
+	plt.style.use('seaborn')
+	fig,ax = plt.subplots()
+	ax.plot(Dateinfo,Tmaxinfo, c = 'red', alpha = 0.4)
+	ax.plot(Dateinfo,Tmininfo, c = 'blue', alpha = 0.4)
+	ax.fill_between(Dateinfo, Tmaxinfo, Tmininfo, facecolor = 'yellow' , alpha = 0.3)
+	ax.set_title('High & Low Temps', fontsize = 22)
+	ax.set_xlabel('', fontsize = 16)
+	fig.autofmt_xdate()
+	ax.set_ylabel('Temps', fontsize = 16)
+	ax.tick_params(axis = 'both', labelsize = 10)
+	plt.show()
+'''
+print(Tmaxinfo)
+print(Tmininfo)
+print(Dateinfo)
+'''
